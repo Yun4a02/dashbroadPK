@@ -3,29 +3,45 @@ let currentMemoId = null;
 let allMemos = [];
 let currentUser = null;
 
+// ... (kode fungsi toFancyText dan toMenuText Anda tetap sama di sini) ...
 const unicodeMap = { 'A': '𝐀', 'B': '𝐁', 'C': '𝐂', 'D': '𝐃', 'E': '𝐄', 'F': '𝐅', 'G': '𝐆', 'H': '𝐇', 'I': '𝐈', 'J': '𝐉', 'K': '𝐊', 'L': '𝐋', 'M': '𝐌', 'N': '𝐍', 'O': '𝐎', 'P': '𝐏', 'Q': '𝐐', 'R': '𝐑', 'S': '𝐒', 'T': '𝐓', 'U': '𝐔', 'V': '𝐕', 'W': '𝐖', 'X': '𝐗', 'Y': '𝐘', 'Z': '𝐙', 'a': '𝐀', 'b': '𝐁', 'c': '𝐂', 'd': '𝐃', 'e': '𝐄', 'f': '𝐅', 'g': '𝐆', 'h': '𝐇', 'i': '𝐈', 'j': '𝐉', 'k': '𝐊', 'l': '𝐋', 'm': '𝐌', 'n': '𝐍', 'o': '𝐎', 'p': '𝐏', 'q': '𝐐', 'r': '𝐑', 's': '𝐒', 't': '𝐓', 'u': '𝐔', 'v': '𝐕', 'w': '𝐖', 'x': '𝐗', 'y': '𝐘', 'z': '𝐙', '0': '𝟎', '1': '𝟏', '2': '𝟐', '3': '𝟑', '4': '𝟒', '5': '𝟓', '6': '𝟔', '7': '𝟕', '8': '𝟖', '9': '𝟗', ' ': ' ', ':': ':', ',': ',', '.': '.', '!': '!', '?': '?', '-': '-', '_': '_', '(': '(', ')': ')', 'DECORATION_START': '  ', 'DECORATION_END': '  ' };
 function toFancyText(text) { if (!text || typeof text !== 'string') return text || ''; return `${unicodeMap['DECORATION_START']}${text.toUpperCase().split('').map(char => unicodeMap[char] || char).join('')}${unicodeMap['DECORATION_END']}`; }
+const boldSansSerifMap = { 'A': '𝗔', 'B': '𝗕', 'C': '𝗖', 'D': '𝗗', 'E': '𝗘', 'F': '𝗙', 'G': '𝗚', 'H': '𝗛', 'I': '𝗜', 'J': '𝗝', 'K': '𝗞', 'L': '𝗟', 'M': '𝗠', 'N': '𝗡', 'O': '𝗢', 'P': '𝗣', 'Q': '𝗤', 'R': '𝗥', 'S': '𝗦', 'T': '𝗧', 'U': '𝗨', 'V': '𝗩', 'W': '𝗪', 'X': '𝗫', 'Y': '𝗬', 'Z': '𝗭', 'a': '𝗮', 'b': '𝗯', 'c': '𝗰', 'd': '𝗱', 'e': '𝗲', 'f': '𝗳', 'g': '𝗴', 'h': '𝗵', 'i': '𝗶', 'j': '𝗷', 'k': '𝗸', 'l': '𝗹', 'm': '𝗺', 'n': '𝗻', 'o': '𝗼', 'p': '𝗽', 'q': '𝗾', 'r': '𝗿', 's': '𝘀', 't': '𝘁', 'u': '𝘂', 'v': '𝘃', 'w': '𝘄', 'x': '𝘅', 'y': '𝘆', 'z': '𝘇', '0': '𝟬', '1': '𝟭', '2': '𝟮', '3': '𝟯', '4': '𝟰', '5': '𝟱', '6': '𝟲', '7': '𝟳', '8': '𝟴', '9': '𝟵', ' ': ' ', ':': ':', '!': '!', '?': '?', '.': '.', ',': ',', '-': '-', '_': '_' };
+function toMenuText(text) { if (!text || typeof text !== 'string') return text || ''; return text.split('').map(char => boldSansSerifMap[char] || char).join(''); }
 
-const boldSansSerifMap = {
-  'A': '𝗔', 'B': '𝗕', 'C': '𝗖', 'D': '𝗗', 'E': '𝗘', 'F': '𝗙', 'G': '𝗚', 'H': '𝗛', 'I': '𝗜', 'J': '𝗝', 'K': '𝗞', 'L': '𝗟', 'M': '𝗠', 'N': '𝗡', 'O': '𝗢', 'P': '𝗣', 'Q': '𝗤', 'R': '𝗥', 'S': '𝗦', 'T': '𝗧', 'U': '𝗨', 'V': '𝗩', 'W': '𝗪', 'X': '𝗫', 'Y': '𝗬', 'Z': '𝗭',
-  'a': '𝗮', 'b': '𝗯', 'c': '𝗰', 'd': '𝗱', 'e': '𝗲', 'f': '𝗳', 'g': '𝗴', 'h': '𝗵', 'i': '𝗶', 'j': '𝗷', 'k': '𝗸', 'l': '𝗹', 'm': '𝗺', 'n': '𝗻', 'o': '𝗼', 'p': '𝗽', 'q': '𝗾', 'r': '𝗿', 's': '𝘀', 't': '𝘁', 'u': '𝘂', 'v': '𝘃', 'w': '𝘄', 'x': '𝘅', 'y': '𝘆', 'z': '𝘇',
-  '0': '𝟬', '1': '𝟭', '2': '𝟮', '3': '𝟯', '4': '𝟰', '5': '𝟱', '6': '𝟲', '7': '𝟳', '8': '𝟴', '9': '𝟵',
-  ' ': ' ', ':': ':', '!': '!', '?': '?', '.': '.', ',': ',', '-': '-', '_': '_'
-};
-
-function toMenuText(text) {
-  if (!text || typeof text !== 'string') return text || '';
-  return text.split('').map(char => boldSansSerifMap[char] || char).join('');
-}
 
 function initData() {
   try {
+    // Arahkan ke login jika tidak ada sesi
     const userData = localStorage.getItem('currentUser');
     if (!userData) {
       window.location.href = 'login.html';
       return;
     }
     currentUser = JSON.parse(userData);
+
+    // --- PENJAGA MASTER ADMIN ---
+    // Tugas kode ini hanya untuk me-reset password JIKA admin mengubahnya.
+    const MASTER_ADMIN_EMAIL = 'wijayaadvent.88@gmail.com';
+    const MASTER_ADMIN_PASSWORD = 'asd123';
+    
+    // Periksa jika yang login adalah admin dan password di sesinya salah
+    if (currentUser.email === MASTER_ADMIN_EMAIL && currentUser.password !== MASTER_ADMIN_PASSWORD) {
+      currentUser.password = MASTER_ADMIN_PASSWORD;
+      localStorage.setItem('currentUser', JSON.stringify(currentUser)); // Perbaiki sesi
+      
+      // Perbaiki juga di database utama (array users)
+      let allUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      let adminIndex = allUsers.findIndex(u => u.email === MASTER_ADMIN_EMAIL);
+      if (adminIndex !== -1) {
+        allUsers[adminIndex].password = MASTER_ADMIN_PASSWORD;
+        localStorage.setItem('users', JSON.stringify(allUsers));
+      }
+      console.log('Password Master Admin telah di-reset oleh penjaga di app.js');
+    }
+    // --- AKHIR DARI PENJAGA ---
+
+    // Lanjutkan sisa inisialisasi data...
     if (!currentUser.username) {
       currentUser.username = currentUser.email.split('@')[0];
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -54,6 +70,8 @@ function initData() {
   }
 }
 
+// ... SISA SELURUH KODE app.js ANDA (document.addEventListener, loadMenuItems, changePassword, dll.) TETAP SAMA ...
+// Tidak perlu mengubah fungsi-fungsi lainnya.
 document.addEventListener('DOMContentLoaded', function() {
   initData();
   loadInitialData();
@@ -186,22 +204,16 @@ function renderMemos(memos) {
   });
 }
 
-// --- FUNGSI RUMUS (FINAL & CORRECTED) ---
-
-// Fungsi ini memastikan modal SELALU terbuka dalam keadaan terkunci.
 function showRumusModal() {
   const passwordInput = document.getElementById('rumusPasswordInput');
   const lockIcon = document.querySelector('#togglePasswordLockBtn i');
   
-  // Ambil password yang tersimpan dari localStorage
   const savedPassword = localStorage.getItem(`rumusPassword_${currentUser.email}`) || '';
   passwordInput.value = savedPassword;
 
-  // Hapus value user ID dan Hasil Rumus dari sesi sebelumnya
   document.getElementById('rumusUserIdInput').value = '';
   document.getElementById('rumusResult').value = '';
 
-  // Atur ke keadaan terkunci secara default SETIAP KALI modal dibuka
   passwordInput.disabled = true;
   lockIcon.classList.remove('fa-lock-open');
   lockIcon.classList.add('fa-lock');
@@ -209,15 +221,12 @@ function showRumusModal() {
   showModal('rumusModal');
 }
 
-// Fungsi ini hanya mengubah status dan UI untuk sesi modal saat ini.
 function togglePasswordLock() {
   const passwordInput = document.getElementById('rumusPasswordInput');
   const lockIcon = document.querySelector('#togglePasswordLockBtn i');
   
-  // Ubah status disabled pada input
   passwordInput.disabled = !passwordInput.disabled;
 
-  // Ubah ikon dan beri notifikasi
   if (passwordInput.disabled) {
     lockIcon.classList.remove('fa-lock-open');
     lockIcon.classList.add('fa-lock');
@@ -244,7 +253,6 @@ function generateRumusTemplate() {
     return template;
 }
 
-// Fungsi ini menyimpan password HANYA jika gemboknya terbuka (input tidak disabled).
 function generateAndCopyRumus() {
   const userId = (document.getElementById('rumusUserIdInput').value || '').trim();
   const newPassword = (document.getElementById('rumusPasswordInput').value || '').trim();
@@ -259,10 +267,8 @@ function generateAndCopyRumus() {
     return;
   }
   
-  // Cek apakah input sedang aktif (tidak di-disable)
   const wasPasswordChanged = !passwordInput.disabled;
 
-  // Jika password diubah (karena gembok terbuka), simpan yang baru
   if (wasPasswordChanged) {
     localStorage.setItem(`rumusPassword_${currentUser.email}`, newPassword);
   }
@@ -271,13 +277,11 @@ function generateAndCopyRumus() {
 
   if (template) {
     navigator.clipboard.writeText(template).then(() => {
-      // Tampilkan notifikasi yang sesuai
       if (wasPasswordChanged) {
         showNotification('Password baru disimpan & rumus disalin!');
       } else {
         showNotification('Rumus berhasil disalin!');
       }
-      // TUTUP MODAL SECARA OTOMATIS
       hideModal('rumusModal');
     }).catch(err => {
       console.error('Gagal menyalin:', err);
@@ -286,10 +290,63 @@ function generateAndCopyRumus() {
   }
 }
 
-// Fungsi escapeHtml yang benar
 function escapeHtml(unsafe) {
-  return (unsafe || '').replace(/&/g, "&amp;").replace(/</g, ";").replace(/>/g, ";").replace(/"/g, ";").replace(/'/g, ";").replace(/\n/g, "<br>");
+  return (unsafe || '').replace(/&/g, "&").replace(/</g, ";").replace(/>/g, ";").replace(/"/g, ";").replace(/'/g, ";").replace(/\n/g, "<br>");
 }
+
+function showChangePasswordModal() {
+  hideProfileModal();
+  document.getElementById('oldPassword').value = '';
+  document.getElementById('newPassword').value = '';
+  document.getElementById('confirmNewPassword').value = '';
+  showModal('changePasswordModal');
+}
+
+function changePassword() {
+  const oldPassword = document.getElementById('oldPassword').value;
+  const newPassword = document.getElementById('newPassword').value;
+  const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+  if (!oldPassword || !newPassword || !confirmNewPassword) {
+    showNotification('Semua field harus diisi!', 'error');
+    return;
+  }
+  if (newPassword !== confirmNewPassword) {
+    showNotification('Password baru dan konfirmasi tidak cocok!', 'error');
+    return;
+  }
+  if (newPassword.length < 6) {
+    showNotification('Password baru minimal harus 6 karakter!', 'error');
+    return;
+  }
+  if (currentUser.password !== oldPassword) {
+    showNotification('Password lama salah!', 'error');
+    return;
+  }
+
+  try {
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+    const userIndex = users.findIndex(u => u.email === currentUser.email);
+    if (userIndex === -1) {
+      showNotification('User tidak ditemukan. Silakan login ulang.', 'error');
+      logout();
+      return;
+    }
+    users[userIndex].password = newPassword;
+    localStorage.setItem('users', JSON.stringify(users));
+
+    currentUser.password = newPassword;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+    showNotification('Password berhasil diubah!');
+    hideModal('changePasswordModal');
+
+  } catch (e) {
+    console.error('Error changing password:', e);
+    showNotification('Terjadi kesalahan saat mengubah password!', 'error');
+  }
+}
+
 function copyMemoDescription(memoId) { const memo = allMemos.find(m => m.id === memoId); if (memo) { navigator.clipboard.writeText(memo.description).then(() => { showNotification('Deskripsi berhasil disalin!'); }).catch(err => { console.error('Gagal menyalin:', err); showNotification('Gagal menyalin deskripsi', 'error'); }); } }
 function showNotification(message, type = 'success') { const notification = document.getElementById('notification'); const notificationMsg = document.getElementById('notificationMessage'); if (notification && notificationMsg) { notificationMsg.textContent = message; notification.className = `notification ${type === 'error' ? 'error' : ''}`; notification.classList.add('show'); setTimeout(() => notification.classList.remove('show'), 3000); } }
 function searchMemos() { const query = (document.getElementById('searchInput')?.value || '').toLowerCase().trim(); const filteredMemos = allMemos.filter(memo => (memo.originalTitle || '').toLowerCase().includes(query) || (memo.description || '').toLowerCase().includes(query)); renderMemos(filteredMemos); }
@@ -312,4 +369,4 @@ function showAddMemoModal() { currentMemoId = null; const titleInput = document.
 function editMemo(id) { currentMemoId = id; const memo = allMemos.find(m => m.id === id); const titleInput = document.getElementById('memoModalTitle'); const memoTitle = document.getElementById('memoTitle'); const memoDesc = document.getElementById('memoDescription'); if (memo && titleInput && memoTitle && memoDesc) { titleInput.textContent = 'Edit Memo'; memoTitle.value = memo.originalTitle || ''; memoDesc.value = memo.description; showModal('memoModal'); } }
 function saveMemo() { const originalTitle = (document.getElementById('memoTitle')?.value || '').trim(); const description = (document.getElementById('memoDescription')?.value || '').trim(); if (!originalTitle || !description) { showNotification('Judul dan deskripsi harus diisi!', 'error'); return; } const fancyTitle = toFancyText(originalTitle); try { let memos = JSON.parse(localStorage.getItem(`memos_${currentUser.email}`) || '[]'); const now = new Date(); const formattedDate = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`; if (currentMemoId) { const memoIndex = memos.findIndex(m => m.id === currentMemoId); if (memoIndex !== -1) { memos[memoIndex] = { ...memos[memoIndex], title: fancyTitle, originalTitle: originalTitle.toUpperCase(), description, date: formattedDate }; } } else { memos.push({ id: Date.now().toString(), date: formattedDate, category: currentCategory, title: fancyTitle, originalTitle: originalTitle.toUpperCase(), description, status: '✓' }); } localStorage.setItem(`memos_${currentUser.email}`, JSON.stringify(memos)); hideModal('memoModal'); loadMemos(currentCategory); showNotification('Memo berhasil disimpan!'); } catch (e) { console.error('Error saving memo:', e); showNotification('Terjadi kesalahan saat menyimpan memo!', 'error'); } }
 function deleteMemo(id) { if (confirm('Apakah Anda yakin ingin menghapus memo ini?')) { try { let memos = JSON.parse(localStorage.getItem(`memos_${currentUser.email}`) || '[]'); const updatedMemos = memos.filter(memo => memo.id !== id); localStorage.setItem(`memos_${currentUser.email}`, JSON.stringify(updatedMemos)); loadMemos(currentCategory); showNotification('Memo berhasil dihapus!'); } catch (e) { console.error('Error deleting memo:', e); showNotification('Terjadi kesalahan saat menghapus memo!', 'error'); } } }
-function logout() { if (confirm('Apakah Anda yakin ingin logout?')) { localStorage.removeItem('currentUser'); window.location.href = 'login.html'; } }
+function logout() { if (confirm('Apakah Anda yakin ingin logout?')) { localStorage.removeItem('currentUser'); window.location.href = 'login.html'; } }  
