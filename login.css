@@ -32,16 +32,23 @@ body {
 
 /* --- AKHIR DARI PERUBAHAN UTAMA --- */
 
-
 .logo {
   text-align: center;
   margin-bottom: 25px;
+}
+
+/* --- CSS UNTUK LOGO --- */
+.logo img {
+  width: 100px; /* Atur lebar logo */
+  height: auto; /* Tinggi akan menyesuaikan secara otomatis */
+  margin-bottom: 15px; /* Memberi jarak antara logo dan teks */
 }
 
 .logo h1 {
   /* Warna logo diubah agar lebih kontras */
   color: #00ffff; 
   margin: 0;
+  font-size: 24px; /* Sesuaikan ukuran font jika perlu */
 }
 
 .input-group {
@@ -116,7 +123,6 @@ body {
   margin-top: 15px;
   font-size: 14px;
 }
-
 
 /* --- ANIMASI NEON DITAMBAHKAN DI SINI --- */
 
