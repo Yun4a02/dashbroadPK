@@ -1,147 +1,99 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html>
 <head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashbroad Perfect keybroad </title>
-  <link rel="icon" type="image/jpg" href="https://i.imgur.com/mKVFazz.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <title>REGISTER</title>
+  <!-- Tambahkan favicon baru -->
+    <link rel="icon" type="image/jpg" href="https://i.imgur.com/mKVFazz.png">
+    <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="register.css">
 </head>
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <div class="user-profile" onclick="toggleProfileModal()">
-        <img src="https://via.placeholder.com/40" alt="Profile" id="profilePicture">
-        <div class="user-info">
-          <span id="currentUserEmail">Username</span>
-          <small>Profile</small>
-        </div>
-      </div>
+  <div class="register-container">
+    <div class="logo">
+      <h1>REGISTER DASHBROAD</h1>
     </div>
-    <div class="sidebar-menu">
-      <div id="menuList"></div>
-      <a href="#" class="sidebar-link add-menu-btn" onclick="showAddMenuModal()">
-        <i class="fa-solid fa-plus"></i>
-        <span>Tambah Menu</span>
-      </a>
+    
+    <div class="input-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Masukan E-mail anda">
     </div>
-    <div class="sidebar-footer">
-       <a href="#" class="sidebar-link logout-btn" onclick="logout()">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        <span>Logout</span>
-      </a>
+    
+    <div class="input-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Input Password">
     </div>
+    
+    <div class="input-group">
+      <label for="confirmPassword">Konfirmasi Password</label>
+      <input type="password" id="confirmPassword" placeholder="Re-Password">
+    </div>
+    
+    <button class="btn-register" id="registerBtn" onclick="doRegister()">DAFTAR</button>
+    
+    <div class="login-link">
+      Sudah punya akun? <a href="login.html">Masuk disini</a>
+    </div>
+    
+    <div id="errorMessage" class="error-message"></div>
   </div>
 
-  <!-- Konten Utama -->
-  <div class="main-content">
-    <div class="header">
-      <div class="header-title">
-        <h2 id="currentCategory">ALL DATA</h2>
-        <p id="header-subtitle">Kelola semua Perfect keybroad Anda di sini</p>
-      </div>
-      <div class="header-actions">
-        <button class="action-btn" id="themeToggle" title="Toggle Theme"><i class="fa-solid fa-sun"></i></button>
-        <button class="action-btn" onclick="showRumusModal()" title="Rumus Reset Password"><i class="fa-solid fa-lock"></i></button>
-        <div class="search-container">
-           <i class="fa-solid fa-magnifying-glass"></i>
-           <input type="text" class="search-box" id="searchInput" placeholder="Cari memo...">
-        </div>
-        <button class="action-btn add-memo-btn-main" onclick="showAddMemoModal()" title="Tambah Memo"><i class="fa-solid fa-plus"></i></button>
-      </div>
-    </div>
-    <div class="content-body">
-        <div id="memoContainer"></div>
-    </div>
-  </div>
-
-  <!-- MODAL: Tambah Menu Baru -->
-  <div class="modal-overlay" id="addMenuModal"><div class="modal-content"><div class="modal-header"><span class="modal-title">Tambah Menu Baru</span><button class="close-btn" onclick="hideModal('addMenuModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="newMenuName">Nama Menu</label><input type="text" class="form-input" id="newMenuName"></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('addMenuModal')">Batal</button><button class="btn btn-primary" onclick="addNewMenu()">Simpan</button></div></div></div>
-  <!-- MODAL: Edit Nama Menu -->
-  <div class="modal-overlay" id="editMenuModal"><div class="modal-content"><div class="modal-header"><span class="modal-title">Edit Nama Menu</span><button class="close-btn" onclick="hideModal('editMenuModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="editMenuName">Nama Menu Baru</label><input type="text" class="form-input" id="editMenuName"><input type="hidden" id="oldMenuName"></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('editMenuModal')">Batal</button><button class="btn btn-primary" onclick="updateMenuName()">Simpan Perubahan</button></div></div></div>
-
-  <!-- MODAL: Rumus Reset Password -->
-  <div class="modal-overlay" id="rumusModal">
-    <div class="modal-content">
-      <div class="modal-header"><span class="modal-title">Rumus Reset Password</span><button class="close-btn" onclick="hideModal('rumusModal')">×</button></div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label" for="rumusUserIdInput">Masukkan User ID</label>
-          <input type="text" class="form-input" id="rumusUserIdInput" placeholder="contoh: susilo0">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="rumusPasswordInput">Password</label>
-          <div class="input-with-icon">
-            <input type="text" class="form-input" id="rumusPasswordInput" placeholder="Klik gembok untuk mengubah...">
-            <button id="togglePasswordLockBtn" class="input-icon-btn" onclick="togglePasswordLock()" title="Kunci/Buka Password">
-              <i class="fa-solid fa-lock"></i>
-            </button>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Hasil Rumus</label>
-          <textarea class="form-input form-textarea" id="rumusResult" readonly rows="7"></textarea>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="hideModal('rumusModal')">Tutup</button>
-        <button class="btn btn-primary" onclick="generateAndCopyRumus()">Generate & Copy</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: Tambah/Edit Memo -->
-  <div class="modal-overlay" id="memoModal"><div class="modal-content"><div class="modal-header"><span class="modal-title" id="memoModalTitle">Tambah Memo Baru</span><button class="close-btn" onclick="hideModal('memoModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="memoTitle">Judul</label><input type="text" class="form-input" id="memoTitle"></div><div class="form-group"><label class="form-label" for="memoDescription">Deskripsi</label><textarea class="form-input form-textarea" id="memoDescription"></textarea></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('memoModal')">Batal</button><button class="btn btn-primary" onclick="saveMemo()">Simpan</button></div></div></div>
-
-  <!-- MODAL: Profile Options (Dropdown) -->
-  <div class="profile-modal" id="profileModal">
-    <div class="profile-modal-content">
-      <div class="profile-modal-header"><span id="profileModalUsername">Username</span><button class="close-btn" onclick="hideProfileModal()">×</button></div>
-      <div class="profile-modal-body">
-          <button class="profile-option-btn" onclick="showUpdateProfilePictureModal()">Update Profile Picture</button>
-          <button class="profile-option-btn" onclick="showUpdateUsernameModal()">Update Username</button>
-          <!-- TOMBOL BARU UNTUK GANTI PASSWORD -->
-          <button class="profile-option-btn" onclick="showChangePasswordModal()">Change Password</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sisa Modal Lainnya -->
-  <div class="modal-overlay" id="updateProfilePictureModal"><div class="modal-content"><div class="modal-header"><span class="modal-title">Update Profile Picture</span><button class="close-btn" onclick="hideModal('updateProfilePictureModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="profilePictureInput">Upload Picture</label><input type="file" class="form-input" id="profilePictureInput" accept="image/*"></div><img id="profilePicturePreview" style="display: none; max-width: 100%; margin-top: 10px;"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('updateProfilePictureModal')">Batal</button><button class="btn btn-primary" onclick="saveProfilePicture()">Simpan</button></div></div></div>
-  <div class="modal-overlay" id="updateUsernameModal"><div class="modal-content"><div class="modal-header"><span class="modal-title">Update Username</span><button class="close-btn" onclick="hideModal('updateUsernameModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="newUsername">New Username</label><input type="text" class="form-input" id="newUsername"></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('updateUsernameModal')">Batal</button><button class="btn btn-primary" onclick="saveUsername()">Simpan</button></div></div></div>
-  
-  <!-- MODAL BARU: Change Password -->
-  <div class="modal-overlay" id="changePasswordModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-title">Change Password</span>
-        <button class="close-btn" onclick="hideModal('changePasswordModal')">×</button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label" for="oldPassword">Old Password</label>
-          <input type="password" class="form-input" id="oldPassword">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="newPassword">New Password</label>
-          <input type="password" class="form-input" id="newPassword">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="confirmNewPassword">Confirm New Password</label>
-          <input type="password" class="form-input" id="confirmNewPassword">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="hideModal('changePasswordModal')">Batal</button>
-        <button class="btn btn-primary" onclick="changePassword()">Simpan Perubahan</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="notification" id="notification"><span class="notification-icon">✓</span><span id="notificationMessage">Berhasil disimpan!</span></div>
-
-  <script src="app.js"></script>
+  <script>
+    function doRegister() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+      const btn = document.getElementById('registerBtn');
+      
+      if (!email || !password || !confirmPassword) {
+        showError('Harap isi semua field');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showError('Password tidak cocok');
+        return;
+      }
+      
+      if (password.length < 6) {
+        showError('Password minimal 6 karakter');
+        return;
+      }
+      
+      // Tampilkan loading
+      btn.disabled = true;
+      btn.textContent = 'Mendaftarkan...';
+      document.getElementById('errorMessage').textContent = '';
+      
+      // Check if user already exists
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const userExists = users.some(u => u.email === email);
+      
+      if (userExists) {
+        showError('Email sudah terdaftar');
+        btn.disabled = false;
+        btn.textContent = 'DAFTAR';
+        return;
+      }
+      
+      // Add new user
+      const newUser = { email, password };
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      
+      // Auto login after registration
+      localStorage.setItem('currentUser', JSON.stringify(newUser));
+      window.location.href = 'index.html';
+    }
+    
+    function showError(message) {
+      document.getElementById('errorMessage').textContent = message;
+    }
+    
+    // Enter key support
+    document.getElementById('confirmPassword').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') doRegister();
+    });
+  </script>
 </body>
 </html>
