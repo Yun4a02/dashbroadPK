@@ -39,7 +39,7 @@ body {
 
 /* --- CSS UNTUK LOGO --- */
 .logo img {
-  width: 100px; /* Atur lebar logo */
+  width: 50px; /* Atur lebar logo */
   height: auto; /* Tinggi akan menyesuaikan secara otomatis */
   margin-bottom: 15px; /* Memberi jarak antara logo dan teks */
 }
