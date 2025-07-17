@@ -61,7 +61,7 @@
   <div class="modal-overlay" id="addMenuModal"><div class="modal-content"><div class="modal-header"><span class="modal-title">Tambah Menu Baru</span><button class="close-btn" onclick="hideModal('addMenuModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="newMenuName">Nama Menu</label><input type="text" class="form-input" id="newMenuName"></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('addMenuModal')">Batal</button><button class="btn btn-primary" onclick="addNewMenu()">Simpan</button></div></div></div>
   <!-- MODAL: Edit Nama Menu -->
   <div class="modal-overlay" id="editMenuModal"><div class="modal-content"><div class="modal-header"><span class="modal-title">Edit Nama Menu</span><button class="close-btn" onclick="hideModal('editMenuModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="editMenuName">Nama Menu Baru</label><input type="text" class="form-input" id="editMenuName"><input type="hidden" id="oldMenuName"></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('editMenuModal')">Batal</button><button class="btn btn-primary" onclick="updateMenuName()">Simpan Perubahan</button></div></div></div>
-  
+
   <!-- MODAL: Rumus Reset Password -->
   <div class="modal-overlay" id="rumusModal">
     <div class="modal-content">
@@ -94,7 +94,7 @@
 
   <!-- MODAL: Tambah/Edit Memo -->
   <div class="modal-overlay" id="memoModal"><div class="modal-content"><div class="modal-header"><span class="modal-title" id="memoModalTitle">Tambah Memo Baru</span><button class="close-btn" onclick="hideModal('memoModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="memoTitle">Judul</label><input type="text" class="form-input" id="memoTitle"></div><div class="form-group"><label class="form-label" for="memoDescription">Deskripsi</label><textarea class="form-input form-textarea" id="memoDescription"></textarea></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('memoModal')">Batal</button><button class="btn btn-primary" onclick="saveMemo()">Simpan</button></div></div></div>
-  
+
   <!-- MODAL: Profile Options (Dropdown) -->
   <div class="profile-modal" id="profileModal">
     <div class="profile-modal-content">
@@ -102,7 +102,8 @@
       <div class="profile-modal-body">
           <button class="profile-option-btn" onclick="showUpdateProfilePictureModal()">Update Profile Picture</button>
           <button class="profile-option-btn" onclick="showUpdateUsernameModal()">Update Username</button>
-</label>
+          <!-- TOMBOL BARU UNTUK GANTI PASSWORD -->
+          <button class="profile-option-btn" onclick="showChangePasswordModal()">Change Password</button>
       </div>
     </div>
   </div>
@@ -110,6 +111,35 @@
   <!-- Sisa Modal Lainnya -->
   <div class="modal-overlay" id="updateProfilePictureModal"><div class="modal-content"><div class="modal-header"><span class="modal-title">Update Profile Picture</span><button class="close-btn" onclick="hideModal('updateProfilePictureModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="profilePictureInput">Upload Picture</label><input type="file" class="form-input" id="profilePictureInput" accept="image/*"></div><img id="profilePicturePreview" style="display: none; max-width: 100%; margin-top: 10px;"></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('updateProfilePictureModal')">Batal</button><button class="btn btn-primary" onclick="saveProfilePicture()">Simpan</button></div></div></div>
   <div class="modal-overlay" id="updateUsernameModal"><div class="modal-content"><div class="modal-header"><span class="modal-title">Update Username</span><button class="close-btn" onclick="hideModal('updateUsernameModal')">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label" for="newUsername">New Username</label><input type="text" class="form-input" id="newUsername"></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="hideModal('updateUsernameModal')">Batal</button><button class="btn btn-primary" onclick="saveUsername()">Simpan</button></div></div></div>
+  
+  <!-- MODAL BARU: Change Password -->
+  <div class="modal-overlay" id="changePasswordModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title">Change Password</span>
+        <button class="close-btn" onclick="hideModal('changePasswordModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="oldPassword">Old Password</label>
+          <input type="password" class="form-input" id="oldPassword">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="newPassword">New Password</label>
+          <input type="password" class="form-input" id="newPassword">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="confirmNewPassword">Confirm New Password</label>
+          <input type="password" class="form-input" id="confirmNewPassword">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="hideModal('changePasswordModal')">Batal</button>
+        <button class="btn btn-primary" onclick="changePassword()">Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>
+
   <div class="notification" id="notification"><span class="notification-icon">✓</span><span id="notificationMessage">Berhasil disimpan!</span></div>
 
   <script src="app.js"></script>
