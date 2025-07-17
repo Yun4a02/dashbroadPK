@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOGELUP CRYPTO - Daftar</title>
+  <!-- Tambahkan favicon baru -->
+    <link rel="icon" type="image/jpg" href="https://res.cloudinary.com/dvamzdxnj/image/upload/v1751207843/_316c351c-9818-4e10-b3e3-dfe66c9a25e0_sswcdi.jpg">
+    <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="register.css">
+</head>
+<body>
+  <div class="register-container">
+    <div class="logo">
+      <h1>REGISTER DASHBROAD</h1>
+    </div>
+    
+    <div class="input-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Masukan E-mail anda">
+    </div>
+    
+    <div class="input-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Input Password">
+    </div>
+    
+    <div class="input-group">
+      <label for="confirmPassword">Konfirmasi Password</label>
+      <input type="password" id="confirmPassword" placeholder="Re-Password">
+    </div>
+    
+    <button class="btn-register" id="registerBtn" onclick="doRegister()">DAFTAR</button>
+    
+    <div class="login-link">
+      Sudah punya akun? <a href="login.html">Masuk disini</a>
+    </div>
+    
+    <div id="errorMessage" class="error-message"></div>
+  </div>
+
+  <script>
+    function doRegister() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+      const btn = document.getElementById('registerBtn');
+      
+      if (!email || !password || !confirmPassword) {
+        showError('Harap isi semua field');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showError('Password tidak cocok');
+        return;
+      }
+      
+      if (password.length < 6) {
+        showError('Password minimal 6 karakter');
+        return;
+      }
+      
+      // Tampilkan loading
+      btn.disabled = true;
+      btn.textContent = 'Mendaftarkan...';
+      document.getElementById('errorMessage').textContent = '';
+      
+      // Check if user already exists
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const userExists = users.some(u => u.email === email);
+      
+      if (userExists) {
+        showError('Email sudah terdaftar');
+        btn.disabled = false;
+        btn.textContent = 'DAFTAR';
+        return;
+      }
+      
+      // Add new user
+      const newUser = { email, password };
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      
+      // Auto login after registration
+      localStorage.setItem('currentUser', JSON.stringify(newUser));
+      window.location.href = 'index.html';
+    }
+    
+    function showError(message) {
+      document.getElementById('errorMessage').textContent = message;
+    }
+    
+    // Enter key support
+    document.getElementById('confirmPassword').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') doRegister();
+    });
+  </script>
+</body>
+</html>

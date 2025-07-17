@@ -1,0 +1,138 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-image: url('https://i.imgur.com/S12tkKR.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* --- PERUBAHAN UTAMA DIMULAI DI SINI --- */
+
+.register-container {
+  /* 1. Background diubah menjadi transparan gelap dengan efek kaca */
+  background: rgba(0, 10, 20, 0.7);
+  backdrop-filter: blur(6px); /* Efek blur pada background di belakang elemen */
+  
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+
+  /* 2. Border diubah menjadi warna dasar neon biru air */
+  border: 2px solid rgba(0, 255, 255, 0.7);
+
+  /* 3. Animasi neon ditambahkan (menggantikan box-shadow lama) */
+  animation: neonBlink 4s ease-in-out infinite;
+}
+
+/* --- AKHIR DARI PERUBAHAN UTAMA --- */
+
+
+.logo {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.logo h1 {
+  /* Warna logo diubah agar lebih kontras */
+  color: #00ffff; 
+  margin: 0;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  /* Warna teks label diubah agar terlihat di background gelap */
+  color: #e0e0e0;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #444; /* Border input diubah agar terlihat */
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+  /* Background input dibuat semi-transparan dan warna teksnya putih */
+  background-color: rgba(0, 0, 0, 0.4); 
+  color: #ffffff;
+}
+
+.btn-register {
+  width: 100%;
+  padding: 12px;
+  /* Warna tombol diubah agar sesuai tema neon */
+  background: #00ffdd;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-register:hover {
+  background: #008c7a;
+}
+
+.btn-register:disabled {
+  background: #555;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #ccc; /* Warna teks diubah agar lebih kontras */
+}
+
+.login-link a {
+  /* Warna link diubah menjadi warna neon */
+  color: #00ffff;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  /* Warna error dibuat lebih cerah */
+  color: #ff5252;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+
+/* --- ANIMASI NEON DITAMBAHKAN DI SINI --- */
+
+@keyframes neonBlink {
+  /* State awal dan akhir animasi (cahaya redup) */
+  0%, 100% {
+    border-color: rgba(0, 255, 255, 0.7);
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.6),
+                0 0 12px rgba(0, 255, 255, 0.4),
+                inset 0 0 6px rgba(0, 255, 255, 0.4);
+  }
+  /* State tengah animasi (cahaya terang / puncak kedipan) */
+  50% {
+    border-color: rgba(0, 255, 255, 1);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 1),
+                0 0 24px rgba(0, 255, 255, 0.6),
+                inset 0 0 12px rgba(0, 255, 255, 0.6);
+  }
+}
